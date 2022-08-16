@@ -26,10 +26,6 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="PQI-mw-bln" id="4tT-Co-c4R"/>
-                            <outlet property="delegate" destination="PQI-mw-bln" id="1y0-Ma-YEr"/>
-                        </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="ToDo List" id="Kps-2j-mPd">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="rM2-Ud-Tn0">
@@ -38,10 +34,50 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="arg-k0-65h" kind="show" identifier="moveToComplete" id="cWP-uZ-uIe"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YyA-A3-9Kl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="719" y="76"/>
+        </scene>
+        <!--Complete To Do View Controller-->
+        <scene sceneID="U7m-rS-4Za">
+            <objects>
+                <viewController id="arg-k0-65h" customClass="CompleteToDoViewController" customModule="toDoList" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RCP-mW-dRF">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wnx-6n-Mb0">
+                                <rect key="frame" x="125" y="340" width="165" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Done"/>
+                                <connections>
+                                    <action selector="completeTapped:" destination="arg-k0-65h" eventType="touchUpInside" id="eX9-Q9-dcB"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a5W-7p-xaH">
+                                <rect key="frame" x="113" y="189" width="189" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="8qw-6V-GBF"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="NBR-Wv-6ZE"/>
+                    <connections>
+                        <outlet property="titleLabel" destination="a5W-7p-xaH" id="ihX-5z-vqD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9D1-ls-ymf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="718.84057971014499" y="806.91964285714278"/>
         </scene>
         <!--Add To Do View Controller-->
         <scene sceneID="96C-qg-4u3">
@@ -101,12 +137,19 @@
                                         </fragment>
                                     </attributedString>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="addTapped:" destination="jWx-iF-cau" eventType="touchUpInside" id="Abh-I3-Gvl"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RIX-cJ-LEk"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="mlz-m3-eXB"/>
+                    <connections>
+                        <outlet property="importantSwitch" destination="kMU-Ym-ftn" id="Dnh-6X-LOm"/>
+                        <outlet property="titleTextField" destination="kCv-Kg-HpY" id="do3-86-Hfy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pry-Mh-EKb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
