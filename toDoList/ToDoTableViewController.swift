@@ -37,16 +37,14 @@ class ToDoTableViewController: UITableViewController {
    */
     
     func getToDos() {
-      if let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
+        if let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
 
-        if let coreDataToDos = try? context.fetch(ToDoCD.fetchRequest()) as? [ToDoCD] {
-            if let theToDos = coreDataToDos {
-                toDos = theToDos
-                tableView.reloadData()
-            }
+          if let coreDataToDos = try? context.fetch(ToDoCD.fetchRequest()) as? [ToDoCD] {
+                  toDos = coreDataToDos
+                  tableView.reloadData()
+          }
         }
       }
-    }
     
     override func viewWillAppear(_ animated: Bool) {
       getToDos()
