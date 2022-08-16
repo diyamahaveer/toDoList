@@ -9,18 +9,19 @@ import UIKit
 
 class ToDoTableViewController: UITableViewController {
     
-    var toDos : [ToDo] = []
+    var toDos : [ToDoCD] = []
     //toDos property
     //we declared the type which is an array
     //it holds the returned ToDos
 
     override func viewDidLoad() {
-        super.viewDidLoad()
+        //super.viewDidLoad()
+        getToDos()
         
-        toDos = createToDos()
+        
     }
     
-    func createToDos() -> [ToDo]{
+  /*  func createToDos() -> [ToDo]{
         //this is saying we are returning an array
         let swift = ToDo()
         swift.name = "Learn Swift"
@@ -32,6 +33,23 @@ class ToDoTableViewController: UITableViewController {
         //no need to set important because it's default is false
         
         return [swift, dog]
+    }
+   */
+    
+    func getToDos() {
+      if let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
+
+        if let coreDataToDos = try? context.fetch(ToDoCD.fetchRequest()) as? [ToDoCD] {
+            if let theToDos = coreDataToDos {
+                toDos = theToDos
+                tableView.reloadData()
+            }
+        }
+      }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+      getToDos()
     }
 
     // MARK: - Table view data source
@@ -46,22 +64,19 @@ class ToDoTableViewController: UITableViewController {
    
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-        
-        let toDo = toDos[indexPath.row]
-        //setting up view controller so the toDo will go in the cell
-        
-        if toDo.important{
-            cell.textLabel?.text = "❗" + toDo.name
-        } else{
+      let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+
+      let toDo = toDos[indexPath.row]
+
+      if let name = toDo.name {
+        if toDo.important {
+            cell.textLabel?.text = "❗️" + name
+        } else {
             cell.textLabel?.text = toDo.name
         }
-        
-        //explains what the cell should do depending on the importance
+      }
 
-        // Configure the cell...
-
-        return cell
+      return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -84,7 +99,7 @@ class ToDoTableViewController: UITableViewController {
       }
 
       if let completeVC = segue.destination as? CompleteToDoViewController {
-        if let toDo = sender as? ToDo {
+        if let toDo = sender as? ToDoCD {
           completeVC.selectedToDo = toDo
           completeVC.previousVC = self
         }
